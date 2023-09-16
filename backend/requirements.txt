@@ -1,0 +1,9 @@
+google-cloud-aiplatform
+google-cloud-aiplatform[preview]
+langchain==0.0.292
+python-dotenv
+openai
+flask
+uvicorn
+fastapi
+loguru
