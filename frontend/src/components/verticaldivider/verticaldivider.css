@@ -1,0 +1,15 @@
+
+/* src/components/VerticalDivider.css */
+.vertical-divider {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid #ccc;
+  }
+  
+  .vertical-divider > * {
+    flex: 1;
+    padding: 16px;
+    overflow: auto;
+  }
+  

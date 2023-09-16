@@ -1,0 +1,116 @@
+/* Input.css */
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .input-label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .input-field {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.2s ease-in-out;
+    outline: none;
+  }
+  
+  .input-field:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .input-field::placeholder {
+    color: #aaa;
+  }
+  
+  /* Optional: Add animation for label float effect */
+  .input-field:not(:placeholder-shown) + .input-label {
+    transform: translateY(-20px);
+    font-size: 12px;
+    color: #007bff;
+  }
+
+  /* Button.css */
+.custom-button {
+    background-color: #007bff; /* Blue color */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .custom-button:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+  }
+  
+  .custom-button:active {
+    background-color: #0056b3; /* Darker blue color on click */
+  }
+  
+  .custom-button:focus {
+    outline: none; /* Remove the focus border */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle box shadow on focus */
+  }
+  
+  /* Input.css */
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .input-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    pointer-events: none;
+    color: #aaa;
+    transition: 0.2s ease-out;
+  }
+  
+  .custom-input {
+    width: 70%;
+    margin-left: 10px;
+    height: 18px;
+    padding: 10px 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    transition: 0.2s ease-out;
+  }
+  
+  .custom-input:focus + .input-label,
+  .custom-input:not(:placeholder-shown) + .input-label {
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+    color: #007bff;
+  }
+  
+  .custom-input:focus {
+    border: 2px solid #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+  
+  .custom-input::placeholder {
+    color: #aaa;
+  }
+  
+  /* Optional: Add animation for label float effect */
+  .custom-input:not(:focus):not(:placeholder-shown) + .input-label {
+    transform: translateY(-10px);
+    font-size: 12px;
+    color: #007bff;
+  }
+  
+  
