@@ -4,7 +4,9 @@ import Shortcut from './components/shortcut/Shortcut';
 import Conversation from './components/conversation/Conversation';
 import Document from './components/document/Document';
 import Recommendation from './components/recommendation/Recommendation';
-import VerticalDivider from './components/verticaldivider/VerticalDivider';
+import MyForm from './components/myform/MyForm'
+import MyProvider from './MyProvider';
+
 
 function App() {
   const documentTitle = 'My Document';
@@ -26,6 +28,7 @@ function App() {
   };
 
   return (
+    <MyProvider>
     <div className='App'>
       <div class='two-column-layout'>
         <div class='left-column'>
@@ -41,6 +44,7 @@ function App() {
                   <Conversation />
                 </div>
                 <div className='second'>
+                  <MyForm />
                   <Chat />
                 </div>
               </div>
@@ -57,6 +61,7 @@ function App() {
         </div>
       </div>
     </div>
+    </MyProvider>
   );
 }
 
