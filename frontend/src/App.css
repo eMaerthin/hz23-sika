@@ -1,0 +1,124 @@
+
+
+.two-column-layout {
+  display: flex;
+
+}
+
+.left-column {
+  padding: 20px;
+  background-color: white;
+  width:  10%!important;
+  height: 500px;
+}
+
+.right-column {
+  flex: 1;
+  padding: 20px;
+  height: 2000px;
+  width: 90%;
+  border-radius: 10px;
+  background-color: rgba(247,247,247,255)
+
+}
+
+.main {
+  display: flex;
+}
+.first {
+  height: 300px;
+  width: 420px;
+  background-color: white;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.second {
+  height: 50px;
+
+  width: 400px;
+
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.third {
+  height: 100px;
+  width: 200px;
+  background-color: white;
+  border-radius: 10px;
+  border-radius: 10px;
+}
+
+.fourth {
+  height: 100px;
+  width: 200px;
+  background-color: white;
+  border-radius: 10px;
+  border-radius: 10px;
+}
+
+.chat-box {
+  width: 90%;
+  height: 150px;
+  flex: 1;
+  /* background-color: gray; */
+  margin-top: 0px;
+  margin-right: 40px !important;
+  height: 400px;
+  border-radius: 10px;
+}
+
+.document-box {
+  width: 20%;
+  height: 150px;
+  margin-left: 40px !important;
+  flex: 1;
+  border-radius: 10px;
+  /* background-color: beige; */
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  height: 100%;
+  padding: 0;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+.container {
+  background-color: rgba(247,247,247,255);
+  padding: 0;
+}
+
+.home {
+  display: flex;
+}
+.header {
+  flex: 1
+}
+
+.column {
+  flex: 1;
+  background-color: rgba(247,247,247,255);
+  width: 100%;
+}
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
