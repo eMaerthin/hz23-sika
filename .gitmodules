@@ -1,0 +1,3 @@
+[submodule "ffe"]
+	path = ffe
+	url = https://github.com/eMaerthin/hz23-sika.git
