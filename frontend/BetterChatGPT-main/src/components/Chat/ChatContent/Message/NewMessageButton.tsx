@@ -17,11 +17,11 @@ const NewMessageButton = React.memo(
       if (chats) {
         const updatedChats: ChatInterface[] = JSON.parse(JSON.stringify(chats));
         let titleIndex = 1;
-        let title = `New Chat ${titleIndex}`;
+        let title = `New Search ${titleIndex}`;
 
         while (chats.some((chat) => chat.title === title)) {
           titleIndex += 1;
-          title = `New Chat ${titleIndex}`;
+          title = `New Search ${titleIndex}`;
         }
 
         updatedChats.unshift(generateDefaultChat(title));
