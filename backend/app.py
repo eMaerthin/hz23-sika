@@ -32,12 +32,21 @@ import os, yaml
 import uvicorn
 from fastapi import FastAPI, File, Form, HTTPException, Body, UploadFile
 from loguru import logger
+from fastapi.middleware.cors import CORSMiddleware
 
 from models.models import (
     UserPrompt, AssistantAnswer
 )
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow requests from all origins (you can restrict this to specific domains)
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all HTTP headers
+)
 
 load_dotenv()  # take environment variables from .env.
 RETRIEVER = ChatGPTPluginRetriever(url="http://0.0.0.0:8080", bearer_token=os.getenv("BEARER_TOKEN"))
@@ -63,7 +72,7 @@ tools = [
         description="useful for when you need to ask with search",
     )
 ]
-llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-16k-0613")
+llm = ChatOpenAI(temperature=0, streaming=True, model="gpt-3.5-turbo-16k-0613")
 
 self_ask_with_search = initialize_agent(
     tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True

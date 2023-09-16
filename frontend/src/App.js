@@ -4,7 +4,6 @@ import Shortcut from './components/shortcut/Shortcut';
 import Conversation from './components/conversation/Conversation';
 import Document from './components/document/Document';
 import Recommendation from './components/recommendation/Recommendation';
-import MyForm from './components/myform/MyForm'
 import MyProvider from './MyProvider';
 
 
@@ -44,7 +43,6 @@ function App() {
                   <Conversation />
                 </div>
                 <div className='second'>
-                  <MyForm />
                   <Chat />
                 </div>
               </div>
