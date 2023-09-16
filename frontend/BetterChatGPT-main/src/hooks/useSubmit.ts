@@ -2,7 +2,7 @@ import React from 'react';
 import useStore from '@store/store';
 import { useTranslation } from 'react-i18next';
 import { ChatInterface, MessageInterface } from '@type/chat';
-import { getChatCompletion, getChatCompletionStream } from '@api/api';
+import { getChatCompletion, getChatCompletionSeeker } from '@api/api';
 import { parseEventSource } from '@api/helper';
 import { limitMessageTokens, updateTotalTokenUsed } from '@utils/messageUtils';
 import { _defaultChatConfig } from '@constants/chat';
@@ -51,6 +51,39 @@ const useSubmit = () => {
     return data.choices[0].message.content;
   };
 
+
+  const generateSeeker = async (
+    message: MessageInterface[]
+  ): Promise<string> => {
+    let data;
+    try {
+      if (!apiKey || apiKey.length === 0) {
+        // official endpoint
+        if (apiEndpoint === officialAPIEndpoint) {
+          throw new Error(t('noApiKeyWarning') as string);
+        }
+
+        // other endpoints
+        data = await getChatCompletionSeeker(
+          useStore.getState().apiEndpoint,
+          message,
+          _defaultChatConfig
+        );
+      } else if (apiKey) {
+        // own apikey
+        data = await getChatCompletionSeeker(
+          useStore.getState().apiEndpoint,
+          message,
+          _defaultChatConfig,
+          apiKey
+        );
+      }
+    } catch (error: unknown) {
+      throw new Error(`Error generating answer!\n${(error as Error).message}`);
+    }
+    return data.text;
+  };
+
   const handleSubmit = async () => {
     const chats = useStore.getState().chats;
     if (generating || !chats) return;
@@ -77,73 +110,11 @@ const useSubmit = () => {
       );
       if (messages.length === 0) throw new Error('Message exceed max token!');
 
-      // no api key (free)
-      if (!apiKey || apiKey.length === 0) {
-        // official endpoint
-        if (apiEndpoint === officialAPIEndpoint) {
-          throw new Error(t('noApiKeyWarning') as string);
-        }
+      let title2 = (await generateSeeker(messages)).trim();
 
-        // other endpoints
-        stream = await getChatCompletionStream(
-          useStore.getState().apiEndpoint,
-          messages,
-          chats[currentChatIndex].config
-        );
-      } else if (apiKey) {
-        // own apikey
-        stream = await getChatCompletionStream(
-          useStore.getState().apiEndpoint,
-          messages,
-          chats[currentChatIndex].config,
-          apiKey
-        );
-      }
-
-      if (stream) {
-        if (stream.locked)
-          throw new Error(
-            'Oops, the stream is locked right now. Please try again'
-          );
-        const reader = stream.getReader();
-        let reading = true;
-        let partial = '';
-        while (reading && useStore.getState().generating) {
-          const { done, value } = await reader.read();
-          const result = parseEventSource(
-            partial + new TextDecoder().decode(value)
-          );
-          partial = '';
-
-          if (result === '[DONE]' || done) {
-            reading = false;
-          } else {
-            const resultString = result.reduce((output: string, curr) => {
-              if (typeof curr === 'string') {
-                partial += curr;
-              } else {
-                const content = curr.choices[0].delta.content;
-                if (content) output += content;
-              }
-              return output;
-            }, '');
-
-            const updatedChats: ChatInterface[] = JSON.parse(
-              JSON.stringify(useStore.getState().chats)
-            );
-            const updatedMessages = updatedChats[currentChatIndex].messages;
-            updatedMessages[updatedMessages.length - 1].content += resultString;
-            setChats(updatedChats);
-          }
-        }
-        if (useStore.getState().generating) {
-          reader.cancel('Cancelled by user');
-        } else {
-          reader.cancel('Generation completed');
-        }
-        reader.releaseLock();
-        stream.cancel();
-      }
+      const updatedMessages = updatedChats[currentChatIndex].messages;
+      updatedMessages[updatedMessages.length - 1].content = title2;
+      setChats(updatedChats);
 
       // update tokens used in chatting
       const currChats = useStore.getState().chats;
