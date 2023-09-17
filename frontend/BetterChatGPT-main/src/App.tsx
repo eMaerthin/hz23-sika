@@ -9,6 +9,7 @@ import useInitialiseNewChat from '@hooks/useInitialiseNewChat';
 import { ChatInterface } from '@type/chat';
 import { Theme } from '@type/theme';
 import Toast from '@components/Toast';
+import Document from '@components/Document';
 
 function App() {
   const initialiseNewChat = useInitialiseNewChat();
@@ -74,10 +75,20 @@ function App() {
   }, []);
 
   return (
+    <div>
+ 
     <div className='overflow-hidden w-full h-full relative'>
       <Menu />
+      <div className='content'>
+      <div className='chat-section'>
       <Chat />
       <Toast />
+      </div>
+   
+      <Document />
+    
+      </div>
+    </div>
     </div>
   );
 }

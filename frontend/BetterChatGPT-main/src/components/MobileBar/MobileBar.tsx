@@ -14,7 +14,7 @@ const MobileBar = () => {
     state.currentChatIndex >= 0 &&
     state.currentChatIndex < state.chats.length
       ? state.chats[state.currentChatIndex].title
-      : 'New Chat'
+      : 'New Search'
   );
 
   const addChat = useAddChat();
@@ -45,7 +45,7 @@ const MobileBar = () => {
         onClick={() => {
           if (!generating) addChat();
         }}
-        aria-label='new chat'
+        aria-label='new search'
       >
         <PlusIcon className='h-6 w-6' />
       </button>

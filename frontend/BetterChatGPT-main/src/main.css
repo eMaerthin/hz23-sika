@@ -65,6 +65,58 @@
     border-bottom-right-radius: 0.375rem;
   }
 
+  .content{
+    display: flex;
+  }
+
+  .document-container {
+    width: 500px;
+    background-color: #474859;
+    flex:1;
+  }
+
+  .document {
+    height: 500px !important;
+    width: 400px;
+    border: 0.5px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    color:white;
+  }
+
+  .recommendation {
+    height: 2000px !important;
+    width: 400px;
+    border: 0.5px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    color:white;
+  }
+
+  .title{
+    padding-left: 10px;
+    padding-top: 5px;
+  }
+
+  .caption{
+    padding-left: 10px;
+    padding-top: 5px;
+    font-size: 14px
+  }
+
+  .underline{
+    padding-left: 10px;
+    padding-top: 5px;
+    font-size: 14px
+  }
+
+  .description{
+    padding-left: 10px;
+    padding-top: 5px;
+    font-size: 10x ;
+    padding-top: 10px
+  }
+
   img {
     @apply inline-block;
   }

@@ -130,7 +130,7 @@ const useSubmit = () => {
         );
       }
 
-      // generate title for new chats
+      // generate title for new searches
       if (
         useStore.getState().autoTitle &&
         currChats &&
