@@ -7,3 +7,4 @@ flask
 uvicorn
 fastapi
 loguru
+tqdm

@@ -33,12 +33,12 @@ RETRIEVER = ChatGPTPluginRetriever(url="http://0.0.0.0:8080", bearer_token=os.ge
 
 def find_knowledge(input:str) -> str:
     """
-    Returns top_k=3 closest matches from the sika database given the user_prompt.
+    Returns top_k=10 closest matches from the sika database given the user_prompt.
     :param input: user question. The user might be a customer (construction engineer) or sales person
-    :return: content of 3 closes matches from the Sika Knowledge database to the given {input}.
+    :return: content of 10 closes matches from the Sika Knowledge database to the given {input}.
     """
     ret_val = ""
-    for i, elem in enumerate(RETRIEVER.get_relevant_documents(input, top_k=3), 1):
+    for i, elem in enumerate(RETRIEVER.get_relevant_documents(input, top_k=10), 1):
         ret_val += f"##Match{i}: {elem.page_content}##\n"
     print(ret_val)
     return ret_val

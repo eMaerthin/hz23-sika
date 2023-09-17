@@ -49,18 +49,18 @@ app.add_middleware(
 )
 
 load_dotenv()  # take environment variables from .env.
-RETRIEVER = ChatGPTPluginRetriever(url="http://0.0.0.0:8080", bearer_token=os.getenv("BEARER_TOKEN"))
+RETRIEVER = ChatGPTPluginRetriever(url="http://0.0.0.0:8080", bearer_token=os.getenv("BEARER_TOKEN"), top_k=10)
 references = []
 
 def find_knowledge(input:str) -> str:
     """
-    Returns top_k=3 closest matches from the sika database given the user_prompt.
+    Returns top_k=10 closest matches from the sika database given the user_prompt.
     :param input: user question. The user might be a customer (construction engineer) or sales person
-    :return: content of 3 closes matches from the Sika Knowledge database to the given {input}.
+    :return: content of 10 closes matches from the Sika Knowledge database to the given {input}.
     """
     global references
     ret_val = ""
-    for i, elem in enumerate(RETRIEVER.get_relevant_documents(input, top_k=3), 1):
+    for i, elem in enumerate(RETRIEVER.get_relevant_documents(input), 1):
         ret_val += f"##Match{i}: {elem.page_content}##\n"
         references.append(f'{elem.metadata["source"]}: {elem.metadata["document_id"]}')
     return ret_val
@@ -95,7 +95,8 @@ async def post_question(
         text, references = process_prompt(prompt)
         return AssistantAnswer(text=text, references=references)
     except Exception as e:
-        logger.error(e)
+        logger.error(e.message)
+        return AssistantAnswer(text=e.message, references=references)
         raise HTTPException(status_code=500, detail=f"str({e})")
 
 
