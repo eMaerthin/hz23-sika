@@ -47,6 +47,36 @@ export const getChatCompletion = async (
   return data;
 };
 
+
+export const getChatCompletionSeeker = async (
+  endpoint: string,
+  messages: MessageInterface[],
+  config: ConfigInterface,
+  apiKey?: string,
+  customHeaders?: Record<string, string>
+) => {
+
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    prompt: messages[messages.length - 1].content,
+  }),
+};
+
+  const apiUrl = 'http://0.0.0.0:5000/query'; // Replace with your API URL
+
+  const response = await fetch(apiUrl,
+    options
+  );
+  if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+  const data = await response.json();
+  return data;
+};
+
+
 export const getChatCompletionStream = async (
   endpoint: string,
   messages: MessageInterface[],
