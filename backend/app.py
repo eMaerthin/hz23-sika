@@ -95,7 +95,8 @@ async def post_question(
         text, references = process_prompt(prompt)
         return AssistantAnswer(text=text, references=references)
     except Exception as e:
-        logger.error(e)
+        logger.error(e.message)
+        return AssistantAnswer(text=e.message, references=references)
         raise HTTPException(status_code=500, detail=f"str({e})")
 
 
