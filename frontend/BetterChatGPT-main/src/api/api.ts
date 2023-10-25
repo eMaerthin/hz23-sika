@@ -66,7 +66,7 @@ const options = {
   }),
 };
 
-  const apiUrl = 'http://0.0.0.0:5000/query'; // Replace with your API URL
+  const apiUrl = 'http://172.16.1.139:5000/question_chat'; // Replace with your API URL
 
   const response = await fetch(apiUrl,
     options

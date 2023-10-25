@@ -86,6 +86,7 @@ const useSubmit = () => {
 
   const handleSubmit = async () => {
     const chats = useStore.getState().chats;
+    console.log("handle submit")
     if (generating || !chats) return;
 
     const updatedChats: ChatInterface[] = JSON.parse(JSON.stringify(chats));
@@ -110,7 +111,7 @@ const useSubmit = () => {
       );
       if (messages.length === 0) throw new Error('Message exceed max token!');
 
-      let title2 = (await generateSeeker(messages)).trim();
+      let title2 = (await generateSeeker(messages));
 
       const updatedMessages = updatedChats[currentChatIndex].messages;
       updatedMessages[updatedMessages.length - 1].content = title2;
@@ -147,7 +148,7 @@ const useSubmit = () => {
           content: `Generate a title in less than 6 words for the following message (language: ${i18n.language}):\n"""\nUser: ${user_message}\nAssistant: ${assistant_message}\n"""`,
         };
 
-        let title = (await generateTitle([message])).trim();
+        let title = (await generateTitle([message]));
         if (title.startsWith('"') && title.endsWith('"')) {
           title = title.slice(1, -1);
         }
